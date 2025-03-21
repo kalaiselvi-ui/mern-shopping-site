@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -11,101 +12,106 @@ const NewArrivals = () => {
     const [canScrollRight, setCanScrollRight] = useState(true);
     const [newArrivals, setNewArrivals] = useState([])
 
-    // useEffect(() => {
-    //     const fetchNewArrivals = async () => {
-    //         try {
+    useEffect(() => {
+        const fetchNewArrivals = async () => {
+            try {
 
-    //             const response = await axios.get(`${import.meta.senv.VITE_BACKEND_URL}/api/products/`)
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/new-arrivals`)
+                console.log("API Response:", response.data.newArrivals); // Debugging step
 
-    //         } catch (err) {
+                setNewArrivals(Array.isArray(response.data.newArrivals) ? response.data.newArrivals : []);
 
-    //         }
-    //     }
+            } catch (err) {
+                console.log(err)
 
-    // })
-
-    const newArrivals = [
-        {
-            _id: '1',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1622497170185-5d668f816a56?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbiUyMGNhc3VhbCUyMHdlYXJ8ZW58MHx8MHx8fDA%3D",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '2',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1636590416708-68a4867918f1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1lbiUyMGNhc3VhbCUyMHdlYXJ8ZW58MHx8MHx8fDA%3D",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '3',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1658691426512-6dfda0030ea0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29tZW4lMjBjYXN1YWwlMjB3ZWFyfGVufDB8fDB8fHww",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '4',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1519235014485-3a25f3ce0b30?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8d29tZW4lMjBqZWFuc3xlbnwwfHwwfHx8MA%3D%3D ",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '5',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1617194804836-5c2a48ef6f74?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdvbWVuJTIwdHNoaXJ0cyUyMGNhc3VhbHxlbnwwfHwwfHx8MA%3D%3D",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '6',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1709899684187-72d8fb998319?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29tZW4lMjB0c2hpcnRzJTIwY2FzdWFsfGVufDB8fDB8fHww",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '7',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1667691546476-2b622a900adb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fHdvbWVuJTIwdHNoaXJ0JTIwY2FzdWFsfGVufDB8fDB8fHww",
-                altText: ""
-            }]
-
-        },
-        {
-            _id: '8',
-            name: "Stylish Jacket",
-            price: 120,
-            images: [{
-                url: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29tZW4lMjBqZWFuc3xlbnwwfHwwfHx8MA%3D%3D",
-                altText: ""
-            }]
-
+            }
         }
-    ]
+        fetchNewArrivals();
+
+    }, [])
+
+    // const newArrivals = [
+    //     {
+    //         _id: '1',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1622497170185-5d668f816a56?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbiUyMGNhc3VhbCUyMHdlYXJ8ZW58MHx8MHx8fDA%3D",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '2',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1636590416708-68a4867918f1?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG1lbiUyMGNhc3VhbCUyMHdlYXJ8ZW58MHx8MHx8fDA%3D",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '3',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1658691426512-6dfda0030ea0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29tZW4lMjBjYXN1YWwlMjB3ZWFyfGVufDB8fDB8fHww",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '4',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1519235014485-3a25f3ce0b30?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8d29tZW4lMjBqZWFuc3xlbnwwfHwwfHx8MA%3D%3D ",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '5',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1617194804836-5c2a48ef6f74?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdvbWVuJTIwdHNoaXJ0cyUyMGNhc3VhbHxlbnwwfHwwfHx8MA%3D%3D",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '6',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1709899684187-72d8fb998319?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29tZW4lMjB0c2hpcnRzJTIwY2FzdWFsfGVufDB8fDB8fHww",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '7',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1667691546476-2b622a900adb?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fHdvbWVuJTIwdHNoaXJ0JTIwY2FzdWFsfGVufDB8fDB8fHww",
+    //             altText: ""
+    //         }]
+
+    //     },
+    //     {
+    //         _id: '8',
+    //         name: "Stylish Jacket",
+    //         price: 120,
+    //         images: [{
+    //             url: "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d29tZW4lMjBqZWFuc3xlbnwwfHwwfHx8MA%3D%3D",
+    //             altText: ""
+    //         }]
+
+    //     }
+    // ]
 
     const handleMouseDown = (e) => {
         setIsDragging(true);
@@ -158,7 +164,7 @@ const NewArrivals = () => {
         return () => {
             container?.removeEventListener("scroll", updateScrollButton); // Clean up
         };
-    }, [])
+    }, [newArrivals])
 
     return (
         <section className='p-4 lg:px-0 py-16'>
